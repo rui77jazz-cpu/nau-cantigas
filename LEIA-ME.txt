@@ -1,0 +1,42 @@
+NAU · Cantigas do Mar — site
+=============================
+
+CONTEÚDO DESTA PASTA
+  index.html        → a página (não mudes o nome: o GitHub Pages procura "index.html")
+  audio/            → os mp3, já renomeados e ligados à página
+
+COMO PUBLICAR NO GITHUB PAGES
+  1. Cria um repositório novo (ex.: nau-cantigas) na tua conta rui77jazz-cpu.
+  2. Carrega o index.html E a pasta audio/ inteira para o repositório
+     (mantém a pasta audio dentro da raiz, ao lado do index.html).
+  3. Settings → Pages → Branch: main / (root) → Save.
+  4. Ao fim de 1–2 minutos o site fica em:
+        https://rui77jazz-cpu.github.io/nau-cantigas
+     (substitui "nau-cantigas" pelo nome que deres ao repositório)
+
+ADICIONAR / TROCAR UM ÁUDIO MAIS TARDE
+  Basta pôr o mp3 na pasta audio/ com o nome exato que está abaixo.
+  Não precisas de mexer no index.html.
+
+MAPA DOS FICHEIROS DE ÁUDIO (nome na pasta ← gravação original)
+  ahoi.mp3                ← Ahoi-CarlosAbrunheiro
+  baleeiros-1.mp3         ← _D_ Baleeiros de New Bedford      (Versão 1)
+  baleeiros-2.mp3         ← Baleeiros de New Bedford          (Versão 2)
+  nas-barcas.mp3          ← 2025_..._marinheiros
+  barco-tomba.mp3         ← _GEFAC_ Barco
+  deita-a-barca.mp3       ← Filandorra - Deita a barca ao rio (extraído do mp4, ~43s, excerto)
+  rema.mp3                ← 2026_..._rema                     (Rema · áudio 1)
+  pousa-e-pousa.mp3       ← Pousa e pousa...                  (Rema · áudio 2)
+  chamarrita-1.mp3        ← 4 - Chamarrita sem Jus            (Versão 1)
+  chamarrita-2.mp3        ← 14 - Chamarrita                   (Versão 2)
+  roupa-do-marinheiro.mp3 ← 17 - Os Vocalistas - A Roupa do Marinheiro
+  cantiga-de-trabalho.mp3 ← Cantiga de trabalho (Ao vivo)
+
+FICOU DE FORA
+  "Cantiga de Levantar Ferro" (Maio Moço) — não tinha letra. Para a juntar,
+  diz-me a letra e eu adiciono a aba + o áudio.
+
+NOTA
+  Algumas gravações são de outros grupos (Os Vocalistas, Filandorra, GEFAC).
+  Num site público ficam acessíveis a qualquer pessoa com o link — se o site
+  for para divulgar, considera usar gravações do próprio Nau nessas faixas.

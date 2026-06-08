@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nau · Cantigas do Mar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d1b2a;
+    --navy:#13314e;
+    --sea:#2f6f8f;
+    --brass:#b6863f;
+    --brass-soft:#e7d6b4;
+    --parchment:#f5efe3;
+    --parchment-2:#efe7d6;
+    --paper:#fbf7ee;
+    --muted:#6c6353;
+    --line:#d9cdb4;
+    --foam:#fffdf8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Spectral',Georgia,serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffffff55, transparent 60%),
+      linear-gradient(180deg, var(--parchment) 0%, var(--parchment-2) 100%);
+    background-attachment:fixed;
+    min-height:100vh;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  header.masthead{
+    position:relative;
+    text-align:center;
+    padding:38px 20px 0;
+    background:linear-gradient(180deg,var(--navy),var(--ink));
+    color:var(--paper);
+    overflow:hidden;
+  }
+  .masthead .anchor{font-size:26px;color:var(--brass-soft);opacity:.85;letter-spacing:.3em;}
+  .masthead h1{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:600;
+    font-size:clamp(48px,11vw,96px);
+    letter-spacing:.14em;
+    margin:.05em 0 0;
+    color:var(--paper);
+    text-shadow:0 2px 20px #00000040;
+  }
+  .masthead .tagline{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-size:clamp(18px,4.5vw,28px);
+    color:var(--brass-soft);
+    margin:0 0 4px;
+    letter-spacing:.04em;
+  }
+  .masthead .sub{
+    font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+    color:#cdd7df;opacity:.8;margin-bottom:28px;
+  }
+  .wave{display:block;width:100%;height:42px;margin-bottom:-1px;}
+
+  /* ---------- Layout ---------- */
+  .wrap{
+    max-width:1120px;margin:0 auto;padding:26px 20px 80px;
+    display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:start;
+  }
+  /* ---------- Nav ---------- */
+  nav.songlist{
+    position:sticky;top:18px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px;
+    box-shadow:0 8px 30px #2a1e0410;
+  }
+  nav.songlist h2{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:15px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);margin:6px 10px 12px;
+  }
+  .nav-item{
+    display:flex;gap:10px;align-items:baseline;
+    width:100%;text-align:left;cursor:pointer;
+    background:none;border:0;border-left:3px solid transparent;
+    padding:9px 10px;border-radius:6px;
+    font-family:'Spectral',serif;font-size:16px;color:var(--ink);
+    transition:background .15s,border-color .15s;
+  }
+  .nav-item:hover{background:var(--parchment);}
+  .nav-item .num{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    color:var(--brass);min-width:20px;font-size:16px;
+  }
+  .nav-item.active{background:var(--parchment-2);border-left-color:var(--brass);font-weight:600;}
+  .nav-item .t{line-height:1.25;}
+
+  /* ---------- Content ---------- */
+  main.stage{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:34px 38px 42px;
+    box-shadow:0 10px 40px #2a1e0412;
+    min-height:60vh;
+  }
+  .song-title{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:clamp(32px,6vw,46px);line-height:1.05;
+    color:var(--navy);margin:0;
+  }
+  .song-sub{
+    font-style:italic;color:var(--muted);font-size:17px;margin:6px 0 0;
+  }
+  .rule{height:2px;background:linear-gradient(90deg,var(--brass),transparent);margin:18px 0 22px;border-radius:2px;}
+
+  /* ---------- Audio ---------- */
+  .players{display:flex;flex-direction:column;gap:14px;margin-bottom:30px;}
+  .player{
+    background:linear-gradient(180deg,var(--foam),var(--parchment));
+    border:1px solid var(--line);border-radius:9px;padding:12px 14px;
+  }
+  .player .plabel{
+    display:flex;align-items:center;gap:8px;
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:18px;
+    color:var(--navy);margin-bottom:8px;letter-spacing:.02em;
+  }
+  .player .plabel .dot{width:8px;height:8px;border-radius:50%;background:var(--brass);}
+  audio{width:100%;height:38px;}
+
+  /* ---------- Lyrics ---------- */
+  .toolbar{display:flex;justify-content:flex-end;gap:6px;margin-bottom:10px;}
+  .toolbar button{
+    border:1px solid var(--line);background:var(--paper);color:var(--muted);
+    border-radius:6px;width:34px;height:30px;cursor:pointer;font-size:14px;
+    font-family:'Spectral',serif;transition:background .15s;
+  }
+  .toolbar button:hover{background:var(--parchment);}
+  .lyrics{font-size:var(--lyric-size,20px);transition:font-size .15s;}
+  .stz{margin:0 0 1.05em;}
+  .stz .ln{margin:0;}
+  .refrain{
+    border-left:3px solid var(--brass);
+    background:linear-gradient(90deg,#b6863f12,transparent);
+    padding:.5em .9em;border-radius:0 6px 6px 0;margin:0 0 1.05em;
+  }
+  .refrain .ln{font-weight:600;color:var(--navy);}
+  .note{color:var(--muted);font-style:italic;font-size:.82em;margin:0 0 1.05em;}
+  .subhead{
+    font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15em;
+    color:var(--brass);letter-spacing:.04em;margin:.4em 0 .5em;
+    border-bottom:1px dotted var(--line);padding-bottom:.2em;
+  }
+  .credit{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);
+    font-style:italic;color:var(--muted);font-size:14px;}
+
+  footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 20px 40px;letter-spacing:.05em;}
+  footer .anchor{color:var(--brass);}
+
+  /* ---------- Mobile ---------- */
+  @media (max-width:820px){
+    .wrap{grid-template-columns:1fr;gap:16px;padding:16px 12px 60px;}
+    nav.songlist{position:static;}
+    main.stage{padding:24px 20px 30px;}
+    .nav-item{font-size:17px;padding:11px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="anchor">⚓</div>
+  <h1>NAU</h1>
+  <p class="tagline">Cantigas do Mar</p>
+  <p class="sub">Repertório · Feira Pirata de Leça do Balio</p>
+  <svg class="wave" viewBox="0 0 1200 42" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C150,40 300,0 450,18 C600,36 750,4 900,20 C1050,36 1150,12 1200,18 L1200,42 L0,42 Z" fill="#f5efe3"/>
+  </svg>
+</header>
+
+<div class="wrap">
+  <nav class="songlist" id="nav">
+    <h2>Cantigas</h2>
+  </nav>
+
+  <main class="stage" id="stage"></main>
+</div>
+
+<footer>
+  <span class="anchor">⚓</span>&nbsp; Nau · Cantigas do Mar
+</footer>
+
+<script>
+/* ---------------- Repertório ---------------- */
+const V = (lines)=>({type:"verse",lines});
+const R = (lines)=>({type:"refrain",lines});
+const N = (lines)=>({type:"note",lines});
+const H = (text)=>({type:"subhead",text});
+
+const songs = [
+  {
+    id:"ahoi", title:"Ahoi",
+    sub:"Schipper, Ik Wil Varen · versão PT: Carlos Abrunheiro",
+    audios:[{label:"Ahoi", file:"audio/ahoi.mp3"}],
+    blocks:[
+      R(["Levai-me Capitão, levai-me para o mar","Quero ser marinheiro, deixai-me embarcar","Ahoi, ahoi, ahoi, ahooooooi","Deixai-me embarcar"]),
+      V(["— Achega-te cá mancebo, que tendes p’a embarcar?","— Trago minha manta de lã e uns lençóis de cetim!","— Ai que moço prendado, nunca serás marujo!","Numa rede tu dormirás, com o rabo todo sujo!"]),
+      N(["(Refrão)"]),
+      V(["— Achega-te cá mancebo, que tendes p’a embarcar?","— Trag’umas queijadinhas e uns pastéis de Belém!","— Ai que moço prendado, nunca serás marujo!","Só pão azedo comerás, e rijo como tudo!"]),
+      N(["(Refrão)"]),
+      V(["— Achega-te cá mancebo, que tendes p’a embarcar?","— Trago a minha amada, com quem quero casar!","— Ai que moço prendado, nunca serás marujo!","Só entrarás no barco, solteiro ou viúvo!"]),
+      N(["(Refrão)"]),
+      V(["— Achega-te cá mancebo, que tendes p’a embarcar?","— Trago tinto da pipa e um barril d’aguardente!","— Já devias ter dito, vind’a bordo com tudo!","Já tens o que é preciso, p’ra seres um bom marujo!"]),
+      N(["(Refrão)"]),
+    ],
+  },
+  {
+    id:"baleeiros", title:"Baleeiros de New Bedford", sub:"",
+    audios:[{label:"Versão 1", file:"audio/baleeiros-1.mp3"},{label:"Versão 2", file:"audio/baleeiros-2.mp3"}],
+    blocks:[
+      V(["Ó rema, rema, oh! Companheiro","Vem celebrar a luz da manhã","Do meu amor fiquei prisioneiro","O seu olhar será meu talismã","O seu olhar será meu talismã"]),
+      R(["Sei que vou zarpar","Adeus, adeus ó minha amada","Vou vencer marés e assombração","Sei que vou zarpar","Hei-de remar de madrugada","Ao compasso do teu coração","Vou vencer marés e assombração"]),
+      V(["Hei-de subir as gáveas do vento","Serpentear as lanças do mar","O meu arpão será meu sustento","Minha galera será o meu solar","Minha galera será o meu solar"]),
+      N(["(Estribilho × 2)"]),
+    ],
+  },
+  {
+    id:"nas-barcas", title:"Nas Barcas de Portugal", sub:"",
+    audios:[{label:"Nas Barcas de Portugal", file:"audio/nas-barcas.mp3"}],
+    blocks:[
+      V(["Nas barcas de Portugal","Trai larai larai lai lai la"]),
+      V(["Morreram muitos marinheiros, vê lá"]),
+      R(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
+      N(["(repete o último verso + refrão)"]),
+      V(["Lai larai larai lai lai la"]),
+      V(["Trago a cabeça aberta","Trai larai larai lai lai la"]),
+      V(["Que me abriu um bacamarte, vê lá"]),
+      R(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
+      N(["(repete o último verso + refrão)"]),
+      V(["Lai larai larai lai lai la"]),
+      V(["Trago a camisa rota","Trai larai larai lai lai la"]),
+      V(["E sangue de um camarada, vê lá"]),
+      R(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
+      N(["(repete o último verso + refrão)"]),
+      V(["Lai larai larai lai lai la"]),
+      V(["Senhora dos Navegantes","Trai larai larai lai lai la"]),
+      V(["Padroeira dos marinheiros, vê lá"]),
+      R(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
+      N(["(repete o último verso + refrão)"]),
+      V(["Trai larai larai lai lai la","Lai larai larai lai lai la (×3)"]),
+    ],
+  },
+  {
+    id:"barco-tomba", title:"Quem Disser Que o Meu Barco Tomba",
+    sub:"Falsete ou Canção dos Foliões · arranjo GEFAC",
+    audios:[{label:"Quem Disser Que o Meu Barco Tomba", file:"audio/barco-tomba.mp3"}],
+    blocks:[
+      V(["1. Quem disser que o meu barco que tomba, pois manda que zomba","lá ao sair da baía","O meu barco não tomba nem manda, nem zomba","não tombou nem tombaria","Quem disser que o meu barco que tomba, pois manda que zomba","lá ao sair da baía"]),
+      R(["Meu barco é meu amiguinho","Eh lá, quem disser que o meu barco que tomba, pois manda que zomba","O meu barco é meu amiguinho, meu barco é meu amiguinho","Eh lá, quem disser que o meu barco que tomba, pois manda que zomba","O meu barco é meu amiguinho"]),
+      V(["2. O meu barco não tomba nem manda nem zomba, meu barco anda direitinho","lá ao sair da baía","Quem disser que o meu barco que tomba, pois manda que zomba","não tombou nem tombaria"]),
+      R(["Nós vamos ter viraçom (eh lá quem disser…)","Ai nós vamos ter viraçom, nós vamos ter viraçom (eh lá quem disser…)","Ai nós vamos ter viraçom"]),
+      V(["3. O meu barco não tombou nem zombou, e tem um bom capitão","lá ao sair da baía","O meu barco não tombou nem zombou","não tombou nem tombaria"]),
+      R(["Diga a minha novidade (eh lá quem disser…)","Diga a minha novidade, diga a minha novidade (eh lá quem disser…)","Diga a minha novidade"]),
+      V(["4. O meu barco não tomba nem manda nem zomba, é uma especialidade","lá ao sair da baía","Quem disser que o meu barco que tomba, pois manda que zomba","não tombou nem tombaria"]),
+      R(["Meu barco é meu amiguinho (eh lá quem disser…)","O meu barco é meu amiguinho, meu barco é meu amiguinho (eh lá quem disser…)","Quem disser que o meu barco que tomba, pois manda que zomba (×2)"]),
+    ],
+    credit:"Recolha de Artur Santos (Conservatório Nacional de Lisboa). “O Folclore Musical nas Ilhas dos Açores” — Antologia sonora da Ilha de Santa Maria, campanha de 1958.",
+  },
+  {
+    id:"deita-a-barca", title:"Água do Rio Clara",
+    sub:"(Deita a Barca ao Rio) · Barqueiros",
+    audios:[{label:"Deita a Barca ao Rio (excerto)", file:"audio/deita-a-barca.mp3"}],
+    blocks:[
+      V(["Água do rio clara","Deixa passar a barrenta;","Quem tem o coração duro","Cai ao chão e não rebenta."]),
+      R(["Ai, amor, deita a barca ao rio!","Deita a barca ao rio!","Vamos barquear!","Ai, amor, se a barca tomba","Caio ao rio,","Não sei nadar!"]),
+      V(["A água daquele rio","Corre que desaparece;","Quem tem amor vadio","Tanto “alembra” como esquece."]),
+      N(["(Refrão)"]),
+      V(["Minha mãe diz que não quer","Ter um filho marinheiro:","Tem medo que lhe morra","Nos embalos do Loureiro."]),
+      N(["(Refrão)"]),
+    ],
+    credit:"Tradicional (Barqueiros, Mesão Frio, Douro). Intérprete da gravação: Filandorra — Teatro do Nordeste.",
+  },
+  {
+    id:"rema", title:"Rema",
+    sub:"Adaptação marinheira",
+    audios:[{label:"Rema", file:"audio/rema.mp3"},{label:"Pousa e pousa", file:"audio/pousa-e-pousa.mp3"}],
+    blocks:[
+      R(["E rema, rema, rema, ai não me toques naquela perna","E rema, rema, à linha, ai não me toques naquela perninha"]),
+      V(["Pesquei sardinhas, sargos e douradas","no mar ao largo da costa de Vagos","Perdi a pesca por uma varina","que andava curvada pelo peso dos bagos"]),
+      N(["(Refrão)"]),
+      V(["Vi uma moça na tasca da praia","fiquei borracho levei-a pra areia","Só no outro dia quando acordei","é qu’eu reparei que ela era tão feia"]),
+      N(["(Refrão)","[faltam mais 2 quadras]"]),
+    ],
+  },
+  {
+    id:"chamarrita", title:"Chamarrita", sub:"",
+    audios:[{label:"Versão 1", file:"audio/chamarrita-1.mp3"},{label:"Versão 2", file:"audio/chamarrita-2.mp3"}],
+    blocks:[
+      H("Chamarrita I"),
+      V(["Esta chamarrita nova,","esta nova chamarrita (2×)","Bem cantada, bem bailada","Não há moda mais bonita (2×)"]),
+      V(["Eu vivo à beira do mar","Vivo mesmo à beirinha (2×)","Da janela do meu quarto","vejo pular a sardinha (2×)"]),
+      V(["Lá no mato marra a cabra","numa presa anda a baleia (2×)","Passarinho na gaiola","chora o preso na cadeia (2×)"]),
+      V(["Esta chamarrita nova","são garrafas não são bilhas (2×)","Eis aqui como se dança","a chamarrita das ilhas (2×)"]),
+      N(["— quadras avulsas —"]),
+      V(["As telhas do meu telhado, as pedras do meu balcão","Elas te podem dizer se eu te quero bem ou não"]),
+      V(["O Pico tem um capelo, pelo norte vai cerrando","Baila para mim amor, que eu para ti estou olhando"]),
+      V(["Lá p’lo mato marra a cabra, numa presa anda a baleia","Canta o melro na gaiola, chora o preso na cadeia"]),
+      V(["Pus-me a contar as estrelas, só agora é que a beijei","Ai por seres a mais bonita, contigo me afogarei"]),
+      V(["Rapariga não te casas, pensa na tua vida","Eu sei de uma casada, que chora de arrependida"]),
+      H("Chamarrita II"),
+      V(["Já não tenho coração, já mo tiraram do peito","E dentro dele lá plantaram um galho de amor perfeito"]),
+      V(["Eu vivo à beira do mar, vivo mesmo à beirinha","Da janela do meu quarto vejo pular a sardinha"]),
+      V(["Quando eu te avaliei lá de cima do altinho","Antes eu tivesse dado atado com o meu lenço e quietinho"]),
+      V(["Eu fui ao fundo do mar a buscar uma pequena","Ela ficou-me lá em baixo, não há gosto sem ter pena"]),
+      V(["Eu fui ao mar sexta-feira não sei eu que ela lá vinha","Nada se faz neste mundo que a culpa não seja minha"]),
+      N(["[há mais…]"]),
+      H("Chamarrita III"),
+      V(["Chama Rita, chama, chama","Já dormi na tua cama","Já dormi na tua cama","Já tua boca beijei","Já gozei dos teus carinhos","E outras coisas que eu cá sei","Já gozei dos teus carinhos","E outras coisas que eu cá sei"]),
+      V(["Volta minha chama Rita","A cavalo no meu peito","A cavalo no meu peito","Não cabe um amor tão grande","Não cabe um amor tão grande","Num palácio tão estreito"]),
+    ],
+  },
+  {
+    id:"roupa-do-marinheiro", title:"A Roupa do Marinheiro", sub:"",
+    audios:[{label:"A Roupa do Marinheiro", file:"audio/roupa-do-marinheiro.mp3"}],
+    blocks:[
+      V(["E a roupa do marinheiro","Não é lavada no rio","É lavada no mar alto","À sombrinha do navio","E à sombrinha do navio","E à sombrinha do vapor","Vai-te embora, marinheiro","Que eu não sou o teu amor"]),
+      R(["Vai-te embora, marinheiro","Que eu não sou o teu amor"]),
+      V(["Eu não sou o teu amor","Eu não sou o teu amor","Eu não sou como a figueira","Que dá fruto sem flor"]),
+      R(["Eu não sou como a figueira","Que dá fruto sem flor","Eu não sou como a figueira","Que dá fruto sem flor"]),
+    ],
+  },
+  {
+    id:"cantiga-de-trabalho", title:"Cantiga de Trabalho",
+    sub:"Letra: João Lóio · Música: José Mário Branco",
+    audios:[{label:"Cantiga de Trabalho (ao vivo)", file:"audio/cantiga-de-trabalho.mp3"}],
+    blocks:[
+      V(["Cava a cova cavador","Faz o sangue do suor","O capataz é o chicote","Que risca a dor"]),
+      R(["À noitinha o céu é um rosário","À noitinha o corpo é um calvário","A gente nem pode andar","À noitinha o céu é um rosário","À noitinha o corpo é um calvário","E o coração fica tão pequenininho","À noite"]),
+      V(["Lança a rede, pescador","Puxa, puxa, pescador","O peixe brilha mas quem ganha","É o armador"]),
+      R(["À noitinha o cheiro a maresia","À noitinha nasce o nosso dia","Os barcos lá vão p’ró mar","À noitinha o cheiro a maresia","À noitinha nasce o nosso dia","Igual a um grito de força e de agonia","À noite"]),
+      V(["Força, força, estivador","Verga o lombo, estivador","Toda a vida mourejando","Ó estivador"]),
+      R(["À noitinha o frio cai e gela","À noitinha a angústia que aperta","O cansaço cai em manto","À noitinha o frio cai e gela","À noitinha a angústia que aperta","Como um nó de sangue e de lágrimas","À noite"]),
+      V(["Cava a cova, cavador","Puxa a rede, pescador","Verga o lombo, estivador","Todo o dia, em cada dia","Trabalhador"]),
+      R(["A dor é igual por todas estas mãos","No calor da luta forja-se a união","Ouve-se nascer a esp’rança","A dor é igual por todas estas mãos","No calor da luta forja-se a união","Rebenta a fúria de esmagar as cadeias","P’ra sempre"]),
+    ],
+  },
+];
+
+/* ---------------- Render ---------------- */
+const nav = document.getElementById("nav");
+const stage = document.getElementById("stage");
+let lyricSize = 20;
+try{ const s = localStorage.getItem("nau-lyric-size"); if(s) lyricSize = parseInt(s,10); }catch(e){}
+
+songs.forEach((s,i)=>{
+  const b = document.createElement("button");
+  b.className = "nav-item";
+  b.dataset.id = s.id;
+  b.innerHTML = `<span class="num">${i+1}</span><span class="t">${s.title}</span>`;
+  b.addEventListener("click", ()=>select(s.id,true));
+  nav.appendChild(b);
+});
+
+function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function renderBlocks(blocks){
+  return blocks.map(bl=>{
+    if(bl.type==="subhead") return `<div class="subhead">${esc(bl.text)}</div>`;
+    const lns = bl.lines.map(l=>`<p class="ln">${esc(l)}</p>`).join("");
+    if(bl.type==="refrain") return `<div class="refrain">${lns}</div>`;
+    if(bl.type==="note") return `<div class="note">${lns}</div>`;
+    return `<div class="stz">${lns}</div>`;
+  }).join("");
+}
+
+function select(id, scroll){
+  const s = songs.find(x=>x.id===id);
+  if(!s) return;
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active", n.dataset.id===id));
+
+  const players = s.audios.map(a=>`
+    <div class="player">
+      <div class="plabel"><span class="dot"></span>${esc(a.label)}</div>
+      <audio controls preload="none" src="${a.file}"></audio>
+    </div>`).join("");
+
+  stage.innerHTML = `
+    <h1 class="song-title">${esc(s.title)}</h1>
+    ${s.sub?`<p class="song-sub">${esc(s.sub)}</p>`:""}
+    <div class="rule"></div>
+    <div class="players">${players}</div>
+    <div class="toolbar">
+      <button id="dec" title="Letra menor">A−</button>
+      <button id="inc" title="Letra maior">A+</button>
+    </div>
+    <div class="lyrics" style="--lyric-size:${lyricSize}px">${renderBlocks(s.blocks)}</div>
+    ${s.credit?`<div class="credit">${esc(s.credit)}</div>`:""}
+  `;
+
+  const ly = stage.querySelector(".lyrics");
+  const apply=()=>{ ly.style.setProperty("--lyric-size", lyricSize+"px"); try{localStorage.setItem("nau-lyric-size",lyricSize);}catch(e){} };
+  stage.querySelector("#inc").addEventListener("click",()=>{ lyricSize=Math.min(34,lyricSize+2); apply(); });
+  stage.querySelector("#dec").addEventListener("click",()=>{ lyricSize=Math.max(15,lyricSize-2); apply(); });
+
+  if(scroll && window.matchMedia("(max-width:820px)").matches){
+    stage.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+  try{ history.replaceState(null,"","#"+id); }catch(e){}
+}
+
+const start = (location.hash||"").replace("#","");
+select(songs.some(s=>s.id===start)?start:songs[0].id, false);
+</script>
+</body>
+</html>
