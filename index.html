@@ -80,8 +80,42 @@
   .stz .ln{margin:0;}
   .refrain{border-left:3px solid var(--brass);background:linear-gradient(90deg,#b6863f12,transparent);padding:.5em .9em;border-radius:0 6px 6px 0;margin:0 0 1.05em;}
   .refrain .ln{font-weight:600;color:var(--navy);}
-  .highlight{background:linear-gradient(90deg,#b6863f18,#fffdf800);padding:.45em .75em;border-radius:8px;margin:0 0 1.05em;}
-  .highlight .ln{font-weight:700;color:var(--navy);font-size:1.08em;line-height:1.42;margin:0;}
+  .highlight{
+    position:relative;
+    background:
+      linear-gradient(90deg,#b6863f24,#fffdf800 92%),
+      linear-gradient(180deg,#fffdf8,#f4ecd9);
+    border:1px solid #d9c086;
+    border-left:7px solid var(--brass);
+    border-radius:12px;
+    padding:.62em .95em .62em 1.15em;
+    margin:0 0 1.12em;
+    box-shadow:0 4px 14px #2a1e040c;
+  }
+  .highlight::before{
+    content:"✦";
+    position:absolute;
+    left:-13px;
+    top:.65em;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--paper);
+    color:var(--brass);
+    font-size:12px;
+    border:1px solid var(--brass-soft);
+  }
+  .highlight .ln{
+    font-weight:700;
+    color:var(--navy);
+    font-size:1.12em;
+    line-height:1.43;
+    margin:0;
+    letter-spacing:.01em;
+  }
   .note{color:var(--muted);font-style:italic;font-size:.82em;margin:0 0 1.05em;}
   .subhead{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.15em;color:var(--brass);letter-spacing:.04em;margin:.4em 0 .5em;border-bottom:1px dotted var(--line);padding-bottom:.2em;}
   .credit{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);font-style:italic;color:var(--muted);font-size:14px;}
@@ -144,26 +178,37 @@ const songs = [
     id:"nas-barcas", title:"Hino dos Marinheiros", sub:"Nas Barcas de Portugal",
     audios:[{label:"Hino dos Marinheiros", file:"audio/nas-barcas.mp3"}],
     blocks:[
-      V(["Nas barcas de Portugal","Trá lará lará lá lará","Morreram muitos marinheiros, vê lá"]),
+      V(["Nas barcas de Portugal"]),
+      D(["Trá lará lará lá lará"]),
+      V(["Morreram muitos marinheiros, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
       V(["Morreram muitos marinheiros, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
-      V(["Trá lará lará lá lará","Trá lará lará lá lará"]),
-      V(["Trago a cabeça aberta","Trá lará lará lá lará","Que me abriu um bacamarte, vê lá"]),
+      D(["Trá lará lará lá lará","Trá lará lará lá lará"]),
+
+      V(["Trago a cabeça aberta"]),
+      D(["Trá lará lará lá lará"]),
+      V(["Que me abriu um bacamarte, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
       V(["Que me abriu um bacamarte, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
-      V(["Trá lará lará lá lará","Trá lará lará lá lará"]),
-      V(["Trago a camisa rota","Trá lará lará lá lará","E sangue de um camarada, vê lá"]),
+      D(["Trá lará lará lá lará","Trá lará lará lá lará"]),
+
+      V(["Trago a camisa rota"]),
+      D(["Trá lará lará lá lará"]),
+      V(["E sangue de um camarada, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
       V(["E sangue de um camarada, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
-      V(["Trá lará lará lá lará","Trá lará lará lá lará"]),
-      V(["Senhora dos Navegantes","Trá lará lará lá lará","Padroeira dos marinheiros, vê lá"]),
+      D(["Trá lará lará lá lará","Trá lará lará lá lará"]),
+
+      V(["Senhora dos Navegantes"]),
+      D(["Trá lará lará lá lará"]),
+      V(["Padroeira dos marinheiros, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
       V(["Padroeira dos marinheiros, vê lá"]),
       D(["Vê lá companheiro, vê lá","Vê lá como venho eu"]),
-      V(["Trá lará lará lá lará","Trá lará lará lá lará"]),
+      D(["Trá lará lará lá lará","Trá lará lará lá lará"]),
     ],
   },
   {
@@ -210,7 +255,7 @@ const songs = [
   },
   {
     id:"levantar-ferro", title:"Cantiga de Levantar Ferro", sub:"",
-    audios:[],
+    audios:[{label:"Cantiga de Levantar Ferro", file:"audio/levantar-ferro.mp3"}],
     blocks:[
       V(["A grande nau Catrineta","Tem os seus mastros de pinho,"]),
       D(["E ai, ai lé!","Ai ai li, ai ai lé,","Marujinho, bate o pé.","Ai lééé"]),
